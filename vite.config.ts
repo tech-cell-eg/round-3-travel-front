@@ -7,4 +7,5 @@ export default defineConfig({
     tailwindcss(),
     react(),
   ],
+  base: '/round-3-travel-front/'
 })
