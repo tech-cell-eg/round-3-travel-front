@@ -1,23 +1,25 @@
-import { useState } from 'react';
-
 import './App.css';
-import { Checkbox } from 'primereact/checkbox';
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import Layout from './components/Layout/Layout';
+import Home from './components/Home/Home';
 
 function App() {
-  const [checked, setChecked] = useState(false);
-
-  return (
-    <>
-      <p>Hello world</p>
-
-      <div className="card flex justify-content-center">
-        <Checkbox
-          onChange={(e:any) => setChecked(e.checked)}
-          checked={checked}
-        />
-      </div>
-    </>
+  const router = createBrowserRouter(
+    [
+      {
+        path: "",
+        element: <Layout />,
+        children: [
+          { index: true, element: <Home /> },
+        ],
+      },
+    ],
+    {
+      basename: "/round-3-travel-front", 
+    }
   );
+
+  return <RouterProvider router={router} />;
 }
 
 export default App;
