@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import image from '../../assets/wave.svg'
 import './Footer.css'
 import { InputText } from 'primereact/inputtext';
