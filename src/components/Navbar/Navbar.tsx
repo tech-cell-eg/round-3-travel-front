@@ -11,9 +11,9 @@ export default function TemplateDemo() {
 
         return (
             <a 
-            className={`px-8 py-2 text-gray-900 
-                hover:bg-orange-200 
-                active:!bg-orange-300 
+            className={`px-8 py-2 text-mainTextColor
+                hover:!bg-navHover 
+                active:!bg-navActive
                 rounded 
                 transition duration-200 
                 cursor-pointer
@@ -48,7 +48,7 @@ export default function TemplateDemo() {
             <InputText
                 placeholder="Search destination or activity"
                 type="text"
-                className="w-8rem sm:w-auto md:me-52 md:ms-22 pe-5 ps-1"
+                className="w-8rem sm:w-auto md:me-52 md:ms-22 pe-5 ps-1 text-textGrayInputs"
             />
         </div>
     
