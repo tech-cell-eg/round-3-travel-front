@@ -1,20 +1,17 @@
-import { useState } from 'react';
-import image from '../../assets/wave.svg'
-import './Footer.css'
-import { InputText } from 'primereact/inputtext';
-import { Button } from 'primereact/button';
-import amex from '../../assets/footerImages/amex.png'
-import disc from '../../assets/footerImages/discover.png'
-import icon from '../../assets/footerImages/icon.png'
-import visa from '../../assets/footerImages/visa.png'  
-import imageicon from '../../assets/footerImages/imageicon.png'
-import pay from '../../assets/footerImages/pay.png'
-
+import { useState } from "react";
+import image from "../../assets/wave.svg";
+import "./Footer.css";
+import { InputText } from "primereact/inputtext";
+import { Button } from "primereact/button";
+const images = import.meta.glob("../../assets/footerImages/*.png", {
+  eager: true,
+});
+const imageList = Object.values(images).map((mod: any) => mod.default);
 
 export default function Footer() {
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState("");
 
-  const handleEmailChange = (e:any) => {
+  const handleEmailChange = (e: any) => {
     setEmail(e.target.value);
   };
 
@@ -22,98 +19,100 @@ export default function Footer() {
     console.log("Email submitted:", email);
   };
 
-
-  
-
   return (
     <div className="relative">
       <img src={image} alt="Wave" className="w-full h-16 object-cover" />
 
-      <div className="footer bg-[#fef7f4] text-black px-14 m-auto py-16 text-sm">
-        <div className="header pb-10 relative flex justify-between items-center max-w-3xl mx-auto pb-4 mb-4">
-          <h4 className="">
-            Speak to our expert at <span className="text-orange-400">1-800-453-6744</span>
+      <div className="footer bg-[#fef7f4] text-black px-4 sm:px-14 py-16 text-sm">
+        <div className="header pb-10 relative flex flex-col sm:flex-row justify-between items-center max-w-3xl mx-auto pb-4 mb-4">
+          <h4 className="text-center sm:text-left">
+            Speak to our expert at{" "}
+            <span className="text-orange-400">1-800-453-6744</span>
           </h4>
-          <h4 className="">Follow Us</h4>
+          <h4 className="text-center sm:text-right mt-4 sm:mt-0">Follow Us</h4>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 px-20">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 px-4 sm:px-20 justify-center">
           {/* Contact Section */}
-          <div>
-            <h4 className="font-bold mb-2">Contact</h4>
-            <p>328 Queensberry Street, North Melbourne VIC3051, Australia.</p>
+          <div className="text-center sm:text-left">
+            <h4 className="font-bold mb-4">Contact</h4>
+            <p className="pb-4">328 Queensberry Street , North Melbourne VIC3051 , Australia.</p>
             <p>hi@viatours.com</p>
           </div>
 
           {/* Company Section */}
-          <div>
-            <h4 className="font-bold mb-2">Company</h4>
-            <ul  className="pb-6">
-              <li className="pb-2">About Us</li>
-              <li className="pb-2">Tourz Reviews</li>
-              <li className="pb-2">Contact Us</li>
-              <li className="pb-2">Data Policy</li>
-              <li className="pb-2">Cookie Policy</li>
-              <li className="pb-2">Legal</li>
-              <li className="pb-2">Sitemap</li>
+          <div className="text-center sm:text-left">
+            <h4 className="font-bold mb-4">Company</h4>
+            <ul className="pb-6">
+              <li className="pb-3">About Us</li>
+              <li className="pb-3">Tourz Reviews</li>
+              <li className="pb-3">Contact Us</li>
+              <li className="pb-3">Data Policy</li>
+              <li className="pb-3">Cookie Policy</li>
+              <li className="pb-3">Legal</li>
+              <li className="pb-3">Sitemap</li>
             </ul>
           </div>
 
           {/* Support Section */}
-          <div>
-            <h4 className="font-bold mb-2">Support</h4>
-            <p>Help Center</p>
-            <p>FAQ</p>
-            <p>Shipping & Returns</p>
+          <div className="text-center sm:text-left">
+            <h4 className="font-bold mb-4">Support</h4>
+            <ul>
+              <li className="pb-3">Get in Touch</li>
+              <li className="pb-3">Help center</li>
+              <li className="pb-3">Live chat</li>
+              <li className="pb-3">How it works</li>
+            </ul>
           </div>
 
           {/* Newsletter Section */}
-          <div>
+          <div className="text-center sm:text-left">
             <h4 className="font-bold mb-2">Newsletter</h4>
-            <p className="mb-2">Subscribe to the newsletter and stay updated.</p>
+            <p className="mb-2">
+              Subscribe to the free newsletter and stay up to date.
+            </p>
 
- {/* Email Input and Submit Button */}
- <div className="newsletter-form flex bg-white  py-4 px-7  rounded-md">
+            {/* Email Input and Submit Button */}
+            <div className="newsletter-form flex bg-white py-4 rounded-lg justify-center sm:justify-start">
               <InputText
                 value={email}
                 onChange={handleEmailChange}
                 placeholder="Enter your email"
-                className="w-full sm:w-4/5    mr-2" 
-                
+                className="w-full sm:w-4/5 ps-3 mr-2"
               />
-                            <Button
-                label="Submit"
+              <Button
+                label="Send"
                 onClick={handleSubmit}
-                className="p-button-sm px-3 "
+                className="p-button-sm px-4"
               />
-
             </div>
-                        {/* Mobile Apps List */}
-                        <div className="mt-4">
-              <h4 className="font-bold mb-2">Mobile Apps</h4>
+
+            {/* Mobile Apps List */}
+            <div className="mt-4">
+              <h4 className="font-bold mb-4">Mobile Apps</h4>
               <ul>
-                <li>iOS App</li>
-                <li>Android App</li>
+                <li className="pb-3">IOS App</li>
+                <li className="pb-3">Android App</li>
               </ul>
             </div>
           </div>
         </div>
       </div>
-      <div className="flex justify-between p-7">
+
+      <div className="flex flex-col sm:flex-row justify-between p-7 items-center mx-auto px-4 sm:px-20">
         <div>
-          <p>© Copyright Viatours 2024</p>
+          <p className="text-sm">© Copyright Viatours 2024</p>
         </div>
-        <div className="flex gap-4">
-          <img src={amex} alt="Amex" className="w-10 h-10" /> 
-          <img src={pay} alt="Paypal" className="w-10 h-10"/>
-          <img src={disc} alt="discoverimage" className="w-10 h-10" />
-          <img src={icon} alt="icon" className="w-10 h-10" />
-          <img src={visa} alt="visa" className="w-10 h-10" />
-          <img src={imageicon} alt="imageicon" className="w-10 h-10" />
-
-
+        <div className="flex gap-4 mt-4 sm:mt-0 justify-center sm:justify-end">
+          {imageList.map((src, index) => (
+            <img
+              key={index}
+              src={src}
+              alt={`footer-icon-${index}`}
+              className="w-10 h-10"
+            />
+          ))}
         </div>
-
       </div>
     </div>
   );
