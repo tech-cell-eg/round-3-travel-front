@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import image from "../../assets/wave.svg";
 import "./Footer.css";
@@ -18,6 +19,7 @@ export default function Footer() {
   const handleSubmit = () => {
     console.log("Email submitted:", email);
   };
+
 
   return (
     <div className="relative">
@@ -114,4 +116,5 @@ export default function Footer() {
       </div>
     </div>
   );
+
 }
