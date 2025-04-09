@@ -3,13 +3,15 @@
 
 @theme {
     
-    --background-color-bgHome:white;
+    --color-bgHome:white;
     --color-mainTextColor: #05073C;
-    --background-color-navHover:#ffd7a8;
-    --background-color-navActive:#ffbf77;
-    --background-color-bgButtonOrange:#EB662B;
-    --color-textOrange:#EB662B;
+    --color-secondTextColor: #ffffff;
+    --color-navHover:#ffd7a8;
+    --color-navActive:#ffbf77;
+    --color-bgButtonOrange:#EB662B;
     --color-textGrayColor:#717171;
     --color-textWhiteColor:#ffffff;
     --color-textGrayInputs:#757575;
+    --border-color-borderGrayInputs:#E7E6E6;
+    --color-textBlack:#000000;
   }
