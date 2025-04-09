@@ -17,7 +17,7 @@ function App() {
       },
     ],
     {
-      basename: "/round-3-travel-front", 
+      basename: '/round-3-travel-front', 
     }
   );
 
