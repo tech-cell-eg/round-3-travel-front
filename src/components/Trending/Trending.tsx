@@ -72,7 +72,7 @@ export default function Trending() {
     return (
         <div className="text-mainTextColor container mx-auto mt-22">
             <div className='flex justify-between pb-6'>
-                <h3 className="md:font-bold font-semibold lg:text-3xl md:text-2xl text-xl max-md:text-center">
+                <h3 className="md:font-bold font-semibold lg:text-3xl md:text-2xl text-lg max-md:text-center">
                     Trending destinations
                 </h3>
                 <div className="card flex justify-content-center">
