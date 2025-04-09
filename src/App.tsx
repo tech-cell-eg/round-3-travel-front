@@ -13,11 +13,12 @@ function App() {
         children: [
           { index: true, element: <Home /> },
           { path: 'about', element: <About /> },
+
         ],
       },
     ],
     {
-      basename: "/round-3-travel-front", 
+      basename: '/round-3-travel-front', 
     }
   );
 

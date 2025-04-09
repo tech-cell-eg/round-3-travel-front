@@ -1,0 +1,10 @@
+
+.footer .header::after{
+    content: "";
+    height: 2px;
+    width: 70%;
+    position: absolute;
+    top: 70%;
+    left: 15%;
+    background-color: #fbebe3;
+}

@@ -1,0 +1,15 @@
+@import "tailwindcss";
+
+
+@theme {
+    
+    --color-bgHome:white;
+    --color-mainTextColor: #05073C;
+    --color-navHover:#ffd7a8;
+    --color-navActive:#ffbf77;
+    --color-bgButtonOrange:#EB662B;
+    --color-textGrayColor:#717171;
+    --color-textWhiteColor:#ffffff;
+    --color-textGrayInputs:#757575;
+    --color-bgTranding:#f5f5f5;
+  }
