@@ -8,16 +8,6 @@ const images = import.meta.glob("../../assets/footerImages/*.png", {
 });
 const imageList = Object.values(images).map((mod: any) => mod.default);
 
-import { useState } from "react";
-import image from "../../assets/wave.svg";
-import "./Footer.css";
-import { InputText } from "primereact/inputtext";
-import { Button } from "primereact/button";
-const images = import.meta.glob("../../assets/footerImages/*.png", {
-  eager: true,
-});
-const imageList = Object.values(images).map((mod: any) => mod.default);
-
 export default function Footer() {
   const [email, setEmail] = useState("");
 
