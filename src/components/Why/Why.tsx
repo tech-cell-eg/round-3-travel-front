@@ -9,7 +9,7 @@ export default function Why() {
     <>
       <div className='text-mainTextColor container  mx-auto mt-22 '>
         <h3 className="md:font-bold font-semibold  lg:text-3xl md:text-2xl text-xl max-md:text-center">Why choose Tourz</h3>
-        <div className='flex max-md:flex-wrap md:pt-10 pt-4'>
+        <div className='flex max-md:flex-wrap md:pt-12  '>
             <motion.div
                 className='col-md-3 md:pe-6 lg:pe-14 md:items-start md:text-start flex flex-col items-center text-center'
                 initial={{ opacity: 0, x: -300 }}    

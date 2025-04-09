@@ -77,7 +77,7 @@ export default function Hero() {
             
         </div>
       </div>
-      <div className="absolute left-0 right-0 lg:bottom-[180px]   bottom-[30px] h-22">
+      <div className="absolute left-0 right-0 lg:bottom-[180px]   bottom-[30px] h-22 ">
               <img src={waveImg}  alt='wave'/>
             </div>
       </div>

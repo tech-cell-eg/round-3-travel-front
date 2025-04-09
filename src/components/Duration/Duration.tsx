@@ -3,8 +3,8 @@ import { Calendar } from "primereact/calendar";
 
 const Duration = ({ onDateChange }: { onDateChange: (start: Date | null, end: Date | null) => void }) => {
   const [dateRange, setDateRange] = useState<(Date | null)[] | null>(null);
-  const [startDate, setStartDate] = useState<Date | null>(null);
-  const [endDate, setEndDate] = useState<Date | null>(null);
+  const [__, setStartDate] = useState<Date | null>(null);
+  const [_, setEndDate] = useState<Date | null>(null);
 
   //   date of this day 
   const today = new Date();
