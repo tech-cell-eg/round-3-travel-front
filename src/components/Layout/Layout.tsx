@@ -5,9 +5,9 @@ import { Outlet } from 'react-router-dom'
 export default function Layout() {
   return (
     <>
-    <div className='bg-bgHome'>
+    <div className='bg-bgHome md:px-5 '>
       <Navbar/>
-      <div className=' py-10 w-full'>
+      <div className='pt-5 w-full'>
         
         <Outlet></Outlet>
       </div>
