@@ -3,6 +3,7 @@
 import { useState } from "react";
 import EditableDropdown from "../DropdownSelect/DropdownSelect"
 
+
 interface TourTypeProps {
   onTourTypeSelect: (tourType: any) => void;
 }
@@ -20,7 +21,7 @@ export default function TourType({ onTourTypeSelect }: TourTypeProps) {
     <div className="card flex justify-content-center items-center">
       <EditableDropdown 
         onCitySelect={handleTourTypeChange} 
-        endpoint="tours"      
+        endpoint="tours"  
       />
     </div>
   );

@@ -9,6 +9,7 @@ export default function Hero() {
   const [endDate, setEndDate] = useState<Date | null>(null);
   const [selectedCity, setSelectedCity] = useState<string | { name: string } | null>(null);
   const [selectedTourType, setSelectedTourType] = useState<string | { name: string } | null>(null);
+  
   // function to handle the change in the calendar as a prop from the duration component
   const handleDateChange = (start: Date | null, end: Date | null) => {
     setStartDate(start);
