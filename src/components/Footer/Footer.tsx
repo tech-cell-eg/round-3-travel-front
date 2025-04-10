@@ -109,7 +109,9 @@ export default function Footer() {
                 label="Send"
                 onClick={handleSubmit}
 
+
                 className="p-button-sm px-4 focus:shadow-[0px_0px_0px_2px_#EB662B] focus:rounded-lg active:p-1 active:shadow-[0px_0px_0px_2px_#EB662B] active:rounded-lg focus:p-1   "
+
               />
             </div>
 
