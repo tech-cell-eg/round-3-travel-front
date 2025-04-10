@@ -1,0 +1,7 @@
+.app-banner {
+    background-image: url(../../assets/text.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    width: 100%;
+}

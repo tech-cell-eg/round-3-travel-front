@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { Carousel } from "primereact/carousel";
+import './Reviews.css';
+
 
 const testimonials = [
   {
@@ -29,6 +31,7 @@ export default function Reviews() {
   const [activeIndex, setActiveIndex] = useState(0);
 
   const reviewTemplate = (review: any) => (
+
     <div className="text-center px-4 py-6  rounded-2xl bg-white max-w-xl mx-auto">
  <div className="flex justify-center mb-4">
   <img
@@ -51,7 +54,9 @@ export default function Reviews() {
   
 
   return (<>
-    <section className="py-16  relative">
+
+    <section className="reviews">
+
       <h2 className="text-center text-2xl font-bold text-gray-800 mb-10">
         Customer Reviews
       </h2>
@@ -81,22 +86,6 @@ export default function Reviews() {
             }`}
           />
         ))}
-      </div>
-
-      {/* Decorative Floating Images */}
-      <div className="absolute top-20 left-40 w-12 h-12 opacity-20">
-        <img
-          src="https://i.pravatar.cc/100?img=10"
-          className="rounded-full"
-          alt=""
-        />
-      </div>
-      <div className="absolute bottom-10 right-0 w-14 h-14 opacity-20">
-        <img
-          src="https://i.pravatar.cc/100?img=12"
-          className="rounded-full"
-          alt=""
-        />
       </div>
     </section>
   </>);
