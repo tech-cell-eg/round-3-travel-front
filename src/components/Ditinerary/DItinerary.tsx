@@ -1,5 +1,3 @@
-import React from "react";
-
 const itineraryData = [
   { day: "Day 1", title: "Airport Pick Up", description: "" },
   { day: "Day 2", title: "Temples & River Cruise", description: "" },
