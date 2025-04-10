@@ -1,15 +1,19 @@
-import { useState } from "react";
+import { useState,useRef } from "react";
 import image from "../../assets/wave.svg";
 import "./Footer.css";
 import { InputText } from "primereact/inputtext";
 import { Button } from "primereact/button";
+import { Toast } from "primereact/toast";
 const images = import.meta.glob("../../assets/footerImages/*.png", {
   eager: true,
 });
 const imageList = Object.values(images).map((mod: any) => mod.default);
 
+
 export default function Footer() {
   const [email, setEmail] = useState("");
+  const toast = useRef<Toast>(null);
+
 
   const handleEmailChange = (e: any) => {
     setEmail(e.target.value);
@@ -17,10 +21,19 @@ export default function Footer() {
 
   const handleSubmit = () => {
     console.log("Email submitted:", email);
+    toast.current?.show({
+      severity: "success",
+      summary: "Success",
+      detail: "Email submitted successfully!",
+      life: 3000,
+    });
   };
+  
 
   return (
     <div className="relative">
+      <Toast ref={toast} />
+
       <img src={image} alt="Wave" className="w-full h-16 object-cover" />
 
 
@@ -96,7 +109,9 @@ export default function Footer() {
                 label="Send"
                 onClick={handleSubmit}
 
-                className="p-button-sm px-4"
+
+                className="p-button-sm px-4 focus:shadow-[0px_0px_0px_2px_#EB662B] focus:rounded-lg active:p-1 active:shadow-[0px_0px_0px_2px_#EB662B] active:rounded-lg focus:p-1   "
+
               />
             </div>
 
