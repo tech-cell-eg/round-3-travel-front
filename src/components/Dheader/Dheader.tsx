@@ -3,6 +3,8 @@ import { Calendar } from "primereact/calendar";
 import { Calendar as CalendarIcon } from "lucide-react";
 import { Checkbox } from "primereact/checkbox";
 import { Button } from "primereact/button";
+import { CheckCircleIcon, XCircleIcon } from 'lucide-react';
+
 
 import "../../App.css";
 const images = import.meta.glob("../../assets/Dimages/*.png", {
@@ -20,6 +22,21 @@ export default function Dheader() {
   const handleButtonClick = (buttonName: any) => {
     setActiveButton(buttonName);
   };
+  const includedItems = [
+    "Beverages, drinking water, morning tea and buffet lunch",
+    "Local taxes",
+    "Hotel pickup and drop-off by air-conditioned minivan",
+    "InsuranceTransfer to a private pier",
+    "Soft drinks",
+    "Tour Guide",
+  ];
+
+  const notIncludedItems = [
+    "Towel",
+    "Tips",
+    "Alcoholic Beverages",
+  ];
+
 
   return (
     <section className="">
@@ -57,6 +74,7 @@ export default function Dheader() {
         />
       </div>
       <div>
+
         <p className="w-1/2 text-2xl p-6 font-bold text-gray-800">
           Phi Phi Islands Adventure Day Trip with Seaview Lunch by V. Marine
           Tour
@@ -126,7 +144,8 @@ export default function Dheader() {
           </div>
         </div>
       </div>
-      <div className="flex flex-col lg:flex-row gap-10 ps-10 py-10">
+      
+      <div className="flex  flex-col lg:flex-row gap-10 ps-10 py-10">
       {/* Info Grid */}
       <div className="flex-1">
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-7 py-4">
@@ -144,7 +163,7 @@ export default function Dheader() {
     </div>
   ))}
 </div>
-<div className="max-w-xl">
+<div className="max-w-xl pb-10">
     <h2 className="text-3xl md:text-4xl font-bold text-[#05073c] mb-4">
       Tour Overview
     </h2>
@@ -173,11 +192,39 @@ export default function Dheader() {
       <li>Catch a glimpse of the wild monkeys around Monkey Beach</li>
     </ul>
     </div>
+    <hr className=" text-gray-300" />
+    <div className="py-12 px-4 md:px-20 bg-white">
+      <h2 className="text-2xl font-bold text-gray-900 mb-8">What's included</h2>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+        {/* Included List */}
+        <ul className="space-y-4">
+          {includedItems.map((item, index) => (
+            <li key={index} className="flex items-start gap-3">
+              <CheckCircleIcon className="text-green-300 mt-1" size={20} />
+              <span className="text-gray-700 text-sm">{item}</span>
+            </li>
+          ))}
+        </ul>
+
+        {/* Not Included List */}
+        <ul className="space-y-4">
+          {notIncludedItems.map((item, index) => (
+            <li key={index} className="flex items-start gap-3">
+              <XCircleIcon className="text-pink-300 mt-1" size={20} />
+              <span className="text-gray-700 text-sm">{item}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+    <hr className="text-gray-300" />
   </div>
 
 
+
+
   {/* Booking Card */}
-  <div className="w-[70%] lg:max-w-xs bg-white p-6  rounded-xl shadow-md border border-gray-100">
+  <div className="w-[70%] max-h-[600px] lg:max-w-xs bg-white p-6  rounded-xl shadow-md border border-gray-100">
   {/* Header */}
     <div className="mb-4 flex gap-2">
       <h3 className="text-lg text-gray-700">From</h3>
@@ -229,18 +276,11 @@ export default function Dheader() {
 
     </div>
 
-{/* Time */}
-<div className="mb-4 p-4 rounded-2xl border border-gray-200 flex items-center gap-4">
-  <div className="w-10 h-10 bg-gray-100 rounded-xl" /> {/* Placeholder for icon */}
-  <div>
-    <p className="text-lg font-semibold text-[#05073C]">Time</p>
-    <p className="text-base text-gray-500">Choose time</p>
-  </div>
-</div>
+
 
 
     {/* Tickets */}
-    <div className="mb-4">
+    <div className="mb-4 pt-4 ">
       <h4 className="font-semibold mb-2 text-sm text-gray-700">Tickets</h4>
       <div className="text-sm space-y-1 text-gray-700">
         <div className="flex justify-between">
@@ -278,9 +318,10 @@ export default function Dheader() {
         </label>
       </div>
     </div>
+    <hr className=" text-gray-300" />
 
     {/* Total & Button */}
-    <div className="flex justify-between items-center font-semibold text-lg mb-4 text-[#05073c]">
+    <div className="flex pt-10 justify-between items-center font-semibold text-lg mb-4 text-[#05073c]">
       <span>Total:</span>
       <span>$530.00</span>
     </div>
@@ -289,8 +330,13 @@ export default function Dheader() {
       label="Book Now"
       className="w-full bg-orange-500 border-none hover:bg-orange-600 text-white font-medium rounded-xl py-4"
     />
+
   </div>
+
+
 </div>
+
+
 
     </section>
   );
