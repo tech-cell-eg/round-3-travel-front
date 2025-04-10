@@ -5,13 +5,17 @@ import { Outlet } from 'react-router-dom'
 export default function Layout() {
   return (
     <>
-      <div className='bg-bgHome md:px-5 flex flex-col min-h-screen'>
-        <Navbar />
-        <div className='pt-5 w-full flex-grow'>
+
+    <div className='bg-bgHome md:px-5 '>
+      <Navbar/>
+        <div className="flex flex-col min-h-screen bg-bgHome">
+        <div className="flex-grow py-10 pt-5 w-full w-full">
           <Outlet />
         </div>
         <Footer />
       </div>
+      </div>
+
     </>
   )
 }
