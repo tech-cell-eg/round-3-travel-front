@@ -13,6 +13,7 @@ function App() {
         children: [
           { index: true, element: <Home /> },
           { path: 'about', element: <About /> },
+
         ],
       },
     ],
