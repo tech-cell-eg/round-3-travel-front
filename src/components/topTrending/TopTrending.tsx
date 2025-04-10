@@ -105,7 +105,5 @@ export default function TopTrending() {
     </div>
   </div>
 </div>
-
-
   );
 }

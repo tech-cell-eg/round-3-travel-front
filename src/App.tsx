@@ -15,8 +15,6 @@ function App() {
           { index: true, element: <Home /> },
           { path: 'about', element: <About /> },
           { path: 'details', element: <Details /> },
-
-
         ],
       },
     ],

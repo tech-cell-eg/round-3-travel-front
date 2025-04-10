@@ -7,8 +7,8 @@ import { motion } from 'framer-motion';
 export default function Why() {
   return (
     <>
-      <div className='text-mainTextColor container  mx-auto mt-22 '>
-        <h3 className="md:font-bold font-semibold  lg:text-3xl md:text-2xl text-xl max-md:text-center">Why choose Tourz</h3>
+      <div className='text-mainTextColor container  mx-auto mt-22 max-md:mt-14 '>
+        <h3 className="md:font-bold font-semibold pb-5  lg:text-3xl md:text-2xl text-xl max-md:text-center">Why choose Tourz</h3>
         <div className='flex max-md:flex-wrap md:pt-12  '>
             <motion.div
                 className='col-md-3 md:pe-6 lg:pe-14 md:items-start md:text-start flex flex-col items-center text-center'
@@ -19,7 +19,7 @@ export default function Why() {
                 viewport={{ once: true }}
             >
                 <HiOutlineTicket size={50} className="text-bgButtonOrange" />
-                <h6 className="pt-5 pb-3 font-semibold">Ultimate flexibility</h6>
+                <h6 className="p-5 pb-3 font-semibold">Ultimate flexibility</h6>
                 <p className="text-sm">
                     You're in control, with free cancellation and payment options to satisfy any plan or budget.
                 </p>
