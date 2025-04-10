@@ -1,6 +1,8 @@
 import Hero from "../Hero/Hero";
-import Popular from "../Popular/Popular";
-import Trending from "../Trending/Trending";
+import HomeBanner from "../HomeBanner/HomeBanner";
+import PopularThings from "../PopularThings/PopularThings";
+import PopularTours from "../PopularTours/PopularTours";
+import Trending from "../TrendingDestination/TrendingDestination";
 import Why from "../Why/Why";
 
 export default function Home() {
@@ -10,8 +12,13 @@ export default function Home() {
       <div className="w-3/4 mx-auto">
         <Why/>
         <Trending/>
-        <Popular/>
+        <PopularTours/>
       </div>
+      <HomeBanner/>
+      <div className="w-3/4 mx-auto">
+         <PopularThings/>
+      </div>
+
     </>
   )
 }
