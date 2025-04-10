@@ -40,7 +40,7 @@ export default function Popular() {
               Find Popular Tours
             </h3>
             <div className="card flex justify-content-center">
-              <Link to={'/'}>
+              <Link to={'list'}>
                 <Button label="see all" className='font-normal cursor-pointer hover:text-bgButtonOrange' unstyled={true} />
               </Link>
             </div>
