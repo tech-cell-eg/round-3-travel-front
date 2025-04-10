@@ -11,6 +11,7 @@ function App() {
         element: <Layout />,
         children: [
           { index: true, element: <Home /> },
+
         ],
       },
     ],
