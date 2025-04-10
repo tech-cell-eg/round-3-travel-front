@@ -2,7 +2,6 @@ import './App.css';
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Layout from './components/Layout/Layout';
 import Home from './components/Home/Home';
-import About from './components/About/About';
 import Details from './components/Details/Details';
 
 function App() {
@@ -13,7 +12,6 @@ function App() {
         element: <Layout />,
         children: [
           { index: true, element: <Home /> },
-          { path: 'about', element: <About /> },
           { path: 'details', element: <Details /> },
         ],
       },
