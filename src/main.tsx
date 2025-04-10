@@ -1,5 +1,5 @@
-import ReactDOM from "react-dom/client";
 import 'primereact/resources/themes/lara-light-indigo/theme.css';  
+import ReactDom from "react-dom/client";
 import 'primereact/resources/primereact.min.css';
 import 'primeicons/primeicons.css';
 import { QueryClientProvider } from '@tanstack/react-query';
