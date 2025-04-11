@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Duration from "../Duration/Duration";
+import Duration from "../Calender/CalenderRange";
 import TourType from "../TourType/TourType";
 import { Button } from 'primereact/button';
 import WhereDestination from "../WhereDestination/WhereDestaination";
@@ -65,7 +65,7 @@ export default function Hero() {
                 </div>
               </div>
               <div className="flex max-md:my-3">
-                <div className="card flex justify-content-center">
+                <div className="card flex justify-content-center w-8">
                   <Duration onDateChange={handleDateChange} />
                 </div>
                 <div className="text-sm ps-2 text-mainTextColor">

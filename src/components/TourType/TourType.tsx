@@ -14,14 +14,14 @@ export default function TourType({ onTourTypeSelect }: TourTypeProps) {
   //to handle the selected tour type and send it to the parent component
   const handleTourTypeChange = (tourType: any) => {
     setSelectedTourType(tourType);
-    onTourTypeSelect(tourType.category);   
+    onTourTypeSelect(tourType);   
   };
 
   return (
     <div className="card flex justify-content-center items-center">
       <EditableDropdown 
         onCitySelect={handleTourTypeChange} 
-        endpoint="tours"  
+        endpoint="tour-categories"  
       />
     </div>
   );

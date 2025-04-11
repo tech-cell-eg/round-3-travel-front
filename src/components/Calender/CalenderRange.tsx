@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Calendar } from "primereact/calendar";
 
-const Duration = ({ onDateChange }: { onDateChange: (start: Date | null, end: Date | null) => void }) => {
+const CalenderRange = ({ onDateChange }: { onDateChange: (start: Date | null, end: Date | null) => void }) => {
   const [dateRange, setDateRange] = useState<(Date | null)[] | null>(null);
   const [__, setStartDate] = useState<Date | null>(null);
   const [_, setEndDate] = useState<Date | null>(null);
@@ -38,7 +38,7 @@ const handleCalendarChange = (e: any) => {
   return (
     <div>
       <Calendar
-        className="w-8 h-8 border-2 rounded border-borderGrayInputs"
+        className="w-full h-8 border-2 rounded-lg border-borderGrayInputs"
         value={dateRange}  
         onChange={handleCalendarChange}  
         selectionMode="range"  
@@ -51,4 +51,4 @@ const handleCalendarChange = (e: any) => {
   );
 };
 
-export default Duration;
+export default CalenderRange;
