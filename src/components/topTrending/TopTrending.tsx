@@ -35,6 +35,7 @@ export default function TopTrending() {
       className="rounded-xl shadow-md transition-transform duration-300 hover:scale-105"
     >
       <div className="p-4">
+        <img src={tour?.image} alt="tour-img" className="pb-6 w-full" />
         <p className="text-sm text-gray-500 text-center mb-1">
           {tour?.destination?.name || "Unknown Location"}
         </p>

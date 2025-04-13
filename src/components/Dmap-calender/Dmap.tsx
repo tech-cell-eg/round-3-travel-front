@@ -13,14 +13,17 @@ const center = {
   lat: 29.7604, // Houston
   lng: -95.3698,
 };
-
 const markers = [
   { lat: 34.0522, lng: -118.2437 }, // Los Angeles
   { lat: 29.7604, lng: -95.3698 },  // Houston
   { lat: 25.7617, lng: -80.1918 },  // Miami
 ];
 
-export default function Dmap() {
+type DmapProps = {
+  slug: string | undefined;
+};
+
+export default function Dmap({ slug }: DmapProps) {
   const [date, setDate] = useState(null);
   const [activeIndex, setActiveIndex] = useState<number | null>(0);
 
@@ -29,7 +32,7 @@ export default function Dmap() {
     isLoading,
     isError,
     error,
-  } = useGetQuery("tours", `/tours/sunt-accusamus-iste`);
+  } = useGetQuery("tours", `/tours/${slug}`);
 
   const { data: faqResponse = {} } = useGetQuery("faq", `/faqs`);
   const faqData = Array.isArray(faqResponse.data) ? faqResponse.data : [];
@@ -71,6 +74,7 @@ export default function Dmap() {
             inline
             numberOfMonths={2}
             showOtherMonths
+            minDate={new Date()}
             className="!border-none"
           />
         </div>
