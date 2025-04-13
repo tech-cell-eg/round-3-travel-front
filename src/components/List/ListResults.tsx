@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { Button } from 'primereact/button';
 import { DataView } from 'primereact/dataview';
 import { useGetQuery } from '../../lib/useGetQuery';
-
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 //typed props (interface)
 type ListResultsProps = {
   destination: string | null;
@@ -89,7 +89,8 @@ const ListResults: React.FC<ListResultsProps> = ({
       : tours;
   }, [tours]);
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) return <div className='flex justify-center items-center pt-32'>
+    <AiOutlineLoading3Quarters /></div>;
   if (isError) return <div>Error: {error?.message}</div>;
   
   if (!dataToRender.length) {

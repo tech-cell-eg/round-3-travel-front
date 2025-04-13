@@ -6,20 +6,31 @@ import LanguageList from "./LanguageList";
 import RatingList from "./RatingList";
 import ListResults from "./ListResults";
 import { Language } from "./types";
+import CalenderRange from "../Calender/CalenderRange";
 
 export default function List() {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   
   const destination = searchParams.get("destination");
-  const startDate = searchParams.get("start_date");
-  const endDate = searchParams.get("end_date");
   const tourType = searchParams.get("tour_type");
 
   const [selectedPrices, setSelectedPrices] = useState<string[]>([]);
   const [selectedTourTypes, setSelectedTourTypes] = useState<string[]>([]);
   const [selectedLanguage, setSelectedLanguage] = useState<Language[]>([]);
   const [selectedRating, setSelectedRating] = useState<string[]>([]);
+  const [dateRange, setDateRange] = useState<{
+    startDate: string | null;
+    endDate: string | null;
+  }>({ startDate: null, endDate: null });
+
+  //handle the change in the date range
+  const handleDateChange = (start: Date | null, end: Date | null) => {
+    setDateRange({
+      startDate: start?.toISOString().split('T')[0] || null,
+      endDate: end?.toISOString().split('T')[0] || null
+    });
+  };
 
   return (
     <div className="w-3/4 mx-auto text-mainTextColor pt-10">
@@ -39,12 +50,9 @@ export default function List() {
           <div className="bg-bgButtonOrange rounded-t-lg py-10 px-4">
             <div className="w-fit mx-auto">
               <p className="text-secondTextColor">When are you traveling?</p>
-              {startDate && endDate && (
-                <div className="bg-white p-2 rounded-lg text-center">
-                  <p>{new Date(startDate).toLocaleDateString()} to</p>
-                  <p>{new Date(endDate).toLocaleDateString()}</p>
-                </div>
-              )}
+              <div className="w-fit bg-white rounded-lg">
+                <CalenderRange onDateChange={handleDateChange} />
+              </div>
             </div>
           </div>
           <div className="p-5">
@@ -62,8 +70,8 @@ export default function List() {
         <div className="w-full md:w-4/6 me-3">
           <ListResults
             destination={destination}
-            startDate={startDate}
-            endDate={endDate}
+            startDate={dateRange.startDate}
+            endDate={dateRange.endDate}
             tourType={tourType}
             selectedPrices={selectedPrices}
             selectedTourTypes={selectedTourTypes}
