@@ -4,19 +4,7 @@ import { useGetQuery } from "../../lib/useGetQuery";
 // import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
 export default function PopularThings() {
-  //define the type of tours data from api(interface)
-  // type Category = {
-  //     id: string;
-  //     name: string;
-  //     rating: string;
-  //     numOfPeop: number;
-  //     price: number;
-  //     title:string;
-  //     destination: {
-  //       name: string;
-  //       image: string;
-  //     };
-  //   };
+  
 
   //get the data from api using custom hook useGetQuery
   const {
