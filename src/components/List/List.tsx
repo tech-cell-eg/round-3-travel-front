@@ -29,7 +29,7 @@ export default function List() {
       </div>
 
       <h3 className="pt-10 md:font-bold font-semibold lg:text-3xl md:text-2xl text-lg">
-        {destination ? Tours in ${destination} : "Explore all tours"}
+        {destination ? `Tours in ${destination}` : "Explore all tours"}
         {tourType && ` - ${tourType}`}
       </h3>
 
