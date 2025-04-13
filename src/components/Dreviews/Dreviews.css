@@ -1,0 +1,4 @@
+.p-rating .p-rating-item.p-rating-item-active .p-rating-icon {
+    color: var(--color-bgButtonOrange);
+    border: var(--color-bgButtonOrange);
+}
