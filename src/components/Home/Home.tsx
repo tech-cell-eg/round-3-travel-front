@@ -16,18 +16,20 @@ export default function Home() {
       <div className="w-3/4 mx-auto">
         <Why/>
         <Trending/>
+
+        <PopularTours/>
+        <HomeBanner/>
+        <PopularThings/>
+
+
         <TopTrending/>
         <Reviews/>
         <AppBanner/>
         <Articles/>
 
-        <PopularTours/>
 
       </div>
-      <HomeBanner/>
-      <div className="w-3/4 mx-auto">
-         <PopularThings/>
-      </div>
+
 
     </>
   )

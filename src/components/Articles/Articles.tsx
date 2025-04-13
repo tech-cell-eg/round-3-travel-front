@@ -1,6 +1,5 @@
 import { Card } from "primereact/card";
 import { Tag } from "primereact/tag";
-import { Button } from "primereact/button";
 import image from "../../assets/art-img.png";
 
 const articles = [
@@ -29,10 +28,7 @@ export default function Articles() {
     <section className="px-4 sm:px-8 lg:px-16 py-10">
       <div className="flex justify-between items-center mb-6">
         <h2 className="text-2xl font-bold text-gray-900">Travel Articles</h2>
-        <Button
-          label="See all"
-          className="p-button-sm p-button-outlined text-gray-500 font-normal focus:shadow-[0px_0px_0px_2px_#EB662B] focus:rounded-lg active:p-1 active:shadow-[0px_0px_0px_2px_#EB662B] active:rounded-lg focus:p-1"
-        />
+
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">

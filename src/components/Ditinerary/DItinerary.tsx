@@ -1,21 +1,36 @@
-const itineraryData = [
-  { day: "Day 1", title: "Airport Pick Up", description: "" },
-  { day: "Day 2", title: "Temples & River Cruise", description: "" },
-  { day: "Day 3", title: "Massage & Overnight Train", description: "Like on all of our trips, we can collect you from the airport..." },
-  { day: "Day 4", title: "Khao Sok National Park", description: "" },
-  { day: "Day 5", title: "Travel to Koh Phangan", description: "" },
-  { day: "Day 6", title: "Morning Chill & Muay Thai Lesson", description: "" },
-  { day: "Day 7", title: "Island Boat Trip", description: "" },
-];
+import { useGetQuery } from "../../lib/useGetQuery";
+
+
+
 
 export default function DItinerary() {
+  const {
+    data: tours = {},
+    isLoading,
+    isError,
+    error,
+  } = useGetQuery("tours", `/tours/sunt-accusamus-iste`);
+
+  const toursArray = tours?.data || [];
+  if (isLoading) return <div>Loading...</div>;
+  if (isError) return <div>Error: {error?.message}</div>;
   return (
-    <div className="max-w-4xl mx-auto py-12 px-4">
-      <h2 className="text-3xl font-bold text-[#001F5F] mb-10">Itinerary</h2>
-      <div className="relative border-l-4 border-orange-500 pl-6 space-y-8">
-        {itineraryData.map((item, index) => (
-          <div key={index} className="relative">
-            <div className="absolute -left-3 top-1 w-5 h-5 rounded-full bg-white border-4 border-orange-500"></div>
+    <div className="max-w-1/2 mx-6  py-12 px-4">
+      <h2 className="text-3xl font-bold text-gray-800 mb-10">Itinerary</h2>
+
+      <div className="relative border-l-2 border-dashed border-bgButtonOrange pl-8">
+        {toursArray?.itineraries.map((item:any, index:number) => (
+          <div key={index} className="relative mb-10">
+            {/* Circle */}
+            <div
+              className={`absolute -left-11 top-0 ${
+                index === 0  || index === toursArray?.itineraries?.length - 1
+                  ? "w-7 h-7 border-4 bg-bgButtonOrange"
+                  : "w-5 h-5 border-2 bg-white"
+              } rounded-full border-bgButtonOrange`}
+            ></div>
+
+            {/* Content */}
             <div>
               <h3 className="text-lg font-bold text-[#001F5F]">
                 {item.day}: {item.title}
