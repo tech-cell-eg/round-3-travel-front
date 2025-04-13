@@ -1,21 +1,17 @@
 import { useEffect, useState } from 'react';
 import { useGetQuery } from '../../lib/useGetQuery';
+import { Language } from './types';
 
-// types (interface)
-type Language = {
-  id: string;
-  languages: string;
-};
 
 // to get the language list
 type LanguageListProps = {
-  onLanguageChange: (selectedLanguages: string[]) => void;
+  onLanguageChange: (selectedLanguages: Language[]) => void;
 };
 
 export default function LanguageList({ onLanguageChange }: LanguageListProps) {
   const [active, setActive] = useState(false);
   const [visibleCount, setVisibleCount] = useState(5);
-  const [selectedLanguages, setSelectedLanguages] = useState<string[]>([]);
+  const [selectedLanguages, setSelectedLanguages] = useState<Language[]>([]);
 
   // get data from api
   const { data: languages = [], isLoading, isError, error } = useGetQuery(
@@ -23,18 +19,20 @@ export default function LanguageList({ onLanguageChange }: LanguageListProps) {
     '/tours'
   );
 
-
   // handle checkbox change (checked or unchecked)
-  const handleCheckboxChange = (id: string) => {
-    setSelectedLanguages((prevSelected) =>
-      prevSelected.includes(id)
-        ? prevSelected.filter((item) => item !== id)
-        : [...prevSelected, id]
-    );
+  const handleCheckboxChange = (language: Language) => {
+    setSelectedLanguages((prevSelected) => {
+      if (prevSelected.some((item) => item.id === language.id)) {
+        return prevSelected.filter((item) => item.id !== language.id); // remove it if already selected
+      } else {
+        return [...prevSelected, language]; // add the language if not selected
+      }
+    });
   };
 
   // send selected languages to parent on every change
   useEffect(() => {
+    // تأكد من إرسال selectedLanguages بشكل صحيح
     onLanguageChange(selectedLanguages);
   }, [selectedLanguages]);
 
@@ -65,8 +63,8 @@ export default function LanguageList({ onLanguageChange }: LanguageListProps) {
                     id={language.id}
                     type="checkbox"
                     className="me-2 w-4 h-4"
-                    checked={selectedLanguages.includes(language.id)}
-                    onChange={() => handleCheckboxChange(language.id)}
+                    checked={selectedLanguages.some((item) => item.id === language.id)}
+                    onChange={() => handleCheckboxChange(language)}
                   />
                   <label htmlFor={language.id}>{language.languages}</label>
                 </li>

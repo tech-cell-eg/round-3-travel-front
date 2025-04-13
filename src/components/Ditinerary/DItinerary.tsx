@@ -2,6 +2,7 @@ import { useGetQuery } from "../../lib/useGetQuery";
 
 
 
+
 export default function DItinerary() {
   const {
     data: tours = {},
