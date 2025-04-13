@@ -79,7 +79,7 @@ export default function DurationList({ onDurationChange }: DurationList) {
         </div>
     );
 }
-=======
+
 // import { useState, useEffect } from 'react';
 
 // //types (interface)
