@@ -82,7 +82,7 @@ const ListResults: React.FC<ListResultsProps> = ({
   //memoizing the data to render
   const dataToRender = useMemo(() => {
     const count = 15;
-    const repeatFactor = Math.ceil(count / tours.length);
+    const repeatFactor = Math.ceil(count /  tours.length);
     const shouldRepeat = false;
     return shouldRepeat
       ? Array.from({ length: repeatFactor }).flatMap(() => tours).slice(0, count)
