@@ -10,12 +10,14 @@ import { Calendar as CalendarIcon, CheckCircleIcon, XCircleIcon } from "lucide-r
 import { useGetQuery } from "../../lib/useGetQuery";
 import "../../App.css";
 
-// ==== Load Static Images ====
-const images = import.meta.glob("../../assets/Dimages/*.png", { eager: true });
-const imageList = Object.values(images).map((mod: any) => mod.default);
 
-// ==== Component Start ====
-export default function Dheader() {
+
+
+type DheaderProps = {
+  slug: string | undefined;
+};
+
+export default function Dheader({ slug }: DheaderProps) {
   const [dateRange, setDateRange] = useState<Date[] | null>(null);
   const calendarRef = useRef<any>(null);
   const [activeButton, setActiveButton] = useState("");
@@ -30,7 +32,7 @@ export default function Dheader() {
     isLoading,
     isError,
     error,
-  } = useGetQuery("tours", `/tours/sunt-accusamus-iste`);
+  } = useGetQuery("tours", `/tours/${slug}`);
 
   const toursArray = tours?.data || [];
 
@@ -102,11 +104,11 @@ const isFreeCancellation = toursArray?.free_cancellation === "Yes";
 
         {/* === Gallery === */}
         <div className="grid grid-cols-3 pt-4 grid-rows-2 gap-2 h-[400px]">
-          <img src={imageList[3]} className="col-span-2 row-span-2 object-cover w-full h-full rounded-xl" />
-          <img src={imageList[0]} className="col-span-1 row-span-1 object-cover w-full h-full rounded-xl" />
+          <img src={toursArray?.image} className="col-span-2 row-span-2 object-cover w-full h-full rounded-xl" />
+          <img src={toursArray?.image} className="col-span-1 row-span-1 object-cover w-full h-full rounded-xl" />
           <div className="grid grid-cols-2 gap-2 col-span-1 row-span-1">
-            <img src={imageList[1]} className="object-cover w-full h-full rounded-xl" />
-            <img src={imageList[2]} className="object-cover w-full h-full rounded-xl" />
+            <img src={toursArray?.image} className="object-cover w-full h-full rounded-xl" />
+            <img src={toursArray?.image} className="object-cover w-full h-full rounded-xl" />
           </div>
         </div>
       </div>

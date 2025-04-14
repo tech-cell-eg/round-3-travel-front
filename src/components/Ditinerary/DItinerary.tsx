@@ -1,15 +1,16 @@
 import { useGetQuery } from "../../lib/useGetQuery";
 
 
-
-
-export default function DItinerary() {
+type DitineraryProps = {
+  slug: string | undefined;
+};
+export default function DItinerary({ slug }: DitineraryProps) {
   const {
     data: tours = {},
     isLoading,
     isError,
     error,
-  } = useGetQuery("tours", `/tours/sunt-accusamus-iste`);
+  } = useGetQuery("tours", `/tours/${slug}`);
 
   const toursArray = tours?.data || [];
   if (isLoading) return <div>Loading...</div>;

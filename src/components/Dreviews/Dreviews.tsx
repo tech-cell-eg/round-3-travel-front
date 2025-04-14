@@ -9,8 +9,10 @@ import { useGetQuery } from '../../lib/useGetQuery';
 import './Dreviews.css';
 
 const ratingFields = ['Location', 'Amenities', 'Food', 'Room', 'Price', 'Tour Operator'];
-
-const Dreviews = () => {
+type DreviewsProps = {
+  slug: string | undefined;
+};
+const Dreviews = ({ slug }: DreviewsProps) => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -69,7 +71,7 @@ const Dreviews = () => {
     isLoading,
     isError,
     error
-  } = useGetQuery('tours', '/tours/sunt-accusamus-iste');
+  } = useGetQuery('tours', `/tours/${slug}`);
 
   const ratingsObj = tours?.data?.categories_rating || {};
   const reviews = tours?.data?.reviews || [];
