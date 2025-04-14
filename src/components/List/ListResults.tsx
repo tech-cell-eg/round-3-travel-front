@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { Button } from 'primereact/button';
 import { DataView } from 'primereact/dataview';
 import { useGetQuery } from '../../lib/useGetQuery';
-
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 //typed props (interface)
 type ListResultsProps = {
   destination: string | null;
@@ -82,14 +82,15 @@ const ListResults: React.FC<ListResultsProps> = ({
   //memoizing the data to render
   const dataToRender = useMemo(() => {
     const count = 15;
-    const repeatFactor = Math.ceil(count / tours.length);
+    const repeatFactor = Math.ceil(count /  tours.length);
     const shouldRepeat = false;
     return shouldRepeat
       ? Array.from({ length: repeatFactor }).flatMap(() => tours).slice(0, count)
       : tours;
   }, [tours]);
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) return <div className='flex justify-center items-center pt-32'>
+    <AiOutlineLoading3Quarters /></div>;
   if (isError) return <div>Error: {error?.message}</div>;
   
   if (!dataToRender.length) {
