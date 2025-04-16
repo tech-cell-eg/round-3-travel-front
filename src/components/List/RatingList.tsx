@@ -11,7 +11,7 @@ export default function RatingList({ onRatingChange }: RatingListProps) {
 
   // data for rating list
   const ratings = [
-    '1 star', '2 stars', '3 stars', '4 stars', '5 stars'  
+    '1 and above', '2 and above', '3 and above', '4 and above', '5 and above'  
   ];
 
   // handle the checkbox change (checked or unchecked)
