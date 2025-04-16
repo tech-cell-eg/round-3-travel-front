@@ -4,19 +4,20 @@ import { Button } from 'primereact/button';
 import { DataView } from 'primereact/dataview';
 import { useGetQuery } from '../../lib/useGetQuery';
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
-//typed props (interface)
+
+//types 
 type ListResultsProps = {
   destination: string | null;
   startDate: string | null;
   endDate: string | null;
   tourType: string | null;
-  selectedPrices: string[];
+  minPrice: number | null;
+  maxPrice: number | null;
   selectedTourTypes: string[];
   selectedLanguage: { languages: string }[];
   selectedRating: string[];
 };
 
-// Define the Tour type with slug
 type Tour = {
   id: string;
   title: string;
@@ -31,26 +32,28 @@ type Tour = {
   };
 };
 
-//display the list of results
 const ListResults: React.FC<ListResultsProps> = ({
   destination,
   startDate,
   endDate,
   tourType,
-  selectedPrices,
+  minPrice,
+  maxPrice,
   selectedTourTypes,
   selectedLanguage,
   selectedRating,
 }) => {
   const queryParams = new URLSearchParams();
 
-  //adding filters to the query params
+  //add query params to the URL
   if (destination) queryParams.append('destination', destination);
   if (startDate) queryParams.append('start_date', startDate);
   if (endDate) queryParams.append('end_date', endDate);
   if (tourType) queryParams.append('tour_type', tourType);
+  if (minPrice !== null) queryParams.append('min_price', minPrice.toString());
+  if (maxPrice !== null) queryParams.append('max_price', maxPrice.toString());
 
-  //adding the selected filters to the query params
+  //add selected tour params to the URL
   selectedRating.forEach((rating) => {
     queryParams.append('rating', rating);
   });
@@ -59,17 +62,13 @@ const ListResults: React.FC<ListResultsProps> = ({
     queryParams.append('tour_category_ids[]', type);
   });
 
-  selectedPrices.forEach((price) => {
-    queryParams.append('price_range[]', price);
-  });
-
   selectedLanguage.forEach((lang) => {
     queryParams.append('language[]', lang.languages);
   });
 
   const queryString = queryParams.toString();
 
-  //getting the data from api
+  //get tours data from api
   const {
     data: response = {},
     isLoading,
@@ -77,12 +76,13 @@ const ListResults: React.FC<ListResultsProps> = ({
     error,
   } = useGetQuery('tours', `/tours?${queryString}`);
 
+  //check if responce is an array
   const tours = Array.isArray(response.data) ? response.data : [];
 
-  //memoizing the data to render
+  //check if tours is empty
   const dataToRender = useMemo(() => {
     const count = 15;
-    const repeatFactor = Math.ceil(count /  tours.length);
+    const repeatFactor = Math.ceil(count / tours.length);
     const shouldRepeat = false;
     return shouldRepeat
       ? Array.from({ length: repeatFactor }).flatMap(() => tours).slice(0, count)
@@ -93,6 +93,7 @@ const ListResults: React.FC<ListResultsProps> = ({
     <AiOutlineLoading3Quarters /></div>;
   if (isError) return <div>Error: {error?.message}</div>;
   
+  //check if tours is empty
   if (!dataToRender.length) {
     return (
       <div className="card">
@@ -113,7 +114,7 @@ const ListResults: React.FC<ListResultsProps> = ({
           <p className="ps-3 text-textGrayColor text-sm">{tour.destination?.name}</p>
           <h6 className="py-4">{tour.title}</h6>
           <p className="text-center text-sm">
-            {tour.rating} ({tour.initial_price})
+            {tour.rating} (${tour.initial_price})
           </p>
           <p className="text-sm py-4">{tour.description}</p>
           <div className="flex justify-between text-bgButtonOrange">

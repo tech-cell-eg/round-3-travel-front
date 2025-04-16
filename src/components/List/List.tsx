@@ -15,7 +15,8 @@ export default function List() {
   const destination = searchParams.get("destination");
   const tourType = searchParams.get("tour_type");
 
-  const [selectedPrices, setSelectedPrices] = useState<string[]>([]);
+  const [minPrice, setMinPrice] = useState<number | null>(null);
+  const [maxPrice, setMaxPrice] = useState<number | null>(null);
   const [selectedTourTypes, setSelectedTourTypes] = useState<string[]>([]);
   const [selectedLanguage, setSelectedLanguage] = useState<Language[]>([]);
   const [selectedRating, setSelectedRating] = useState<string[]>([]);
@@ -23,8 +24,8 @@ export default function List() {
     startDate: string | null;
     endDate: string | null;
   }>({ startDate: null, endDate: null });
-
-  //handle the change in the date range
+  
+  //handle date change
   const handleDateChange = (start: Date | null, end: Date | null) => {
     setDateRange({
       startDate: start?.toISOString().split('T')[0] || null,
@@ -58,7 +59,12 @@ export default function List() {
           <div className="p-5">
             <TourTypeList onTourTypeChange={setSelectedTourTypes} />
             <div className="h-[1px] bg-borderGrayInputs mx-auto my-3" />
-            <FilterPrice onPriceChange={setSelectedPrices} />
+            <FilterPrice 
+              onPriceChange={(min, max) => {
+                setMinPrice(min);
+                setMaxPrice(max);
+              }} 
+            />
             <div className="h-[1px] bg-borderGrayInputs mx-auto my-3" />
             <LanguageList onLanguageChange={setSelectedLanguage} />
             <div className="h-[1px] bg-borderGrayInputs mx-auto my-3" />
@@ -73,7 +79,8 @@ export default function List() {
             startDate={dateRange.startDate}
             endDate={dateRange.endDate}
             tourType={tourType}
-            selectedPrices={selectedPrices}
+            minPrice={minPrice}
+            maxPrice={maxPrice}
             selectedTourTypes={selectedTourTypes}
             selectedLanguage={selectedLanguage}
             selectedRating={selectedRating}

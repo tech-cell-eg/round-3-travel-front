@@ -1,42 +1,34 @@
-
 import { useState, useEffect } from 'react';
 
 //types (interface)
-
 type FilterPriceProps = {
-    onPriceChange: (selectedPrices: string[]) => void;
+    onPriceChange: (minPrice: number | null, maxPrice: number | null) => void;
 };
 
 export default function FilterPrice({ onPriceChange }: FilterPriceProps) {
     const [active, setActive] = useState(false);
-    const [visibleCount, setVisibleCount] = useState(5);
-    const [selectedPrices, setSelectedPrices] = useState<string[]>([]);
+    const [minPrice, setMinPrice] = useState<number | null>(null);
+    const [maxPrice, setMaxPrice] = useState<number | null>(null);
 
-    //data for price list
-    const prices = [
-        '$1', '$2', '$3', '$4', '$5',
-        '$6', '$7', '$8', '$9', '$10',
-        'More than $10'
-    ];
-
-      //handle the chechbox change (checked or unchecked)
-    const handleCheckboxChange = (price: string) => {
-        setSelectedPrices((prevSelected) =>
-            prevSelected.includes(price)
-                ? prevSelected.filter((item) => item !== price)
-                : [...prevSelected, price]
-        );
+    //handle the inputs change (checked or unchecked)
+    const handleMinPriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const value = e.target.value ? parseInt(e.target.value) : null;
+        setMinPrice(value);
     };
 
-    // Send selected prices to parent on every change
+    const handleMaxPriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const value = e.target.value ? parseInt(e.target.value) : null;
+        setMaxPrice(value);
+    };
+
+    //send selected price to parent on every change
     useEffect(() => {
-        onPriceChange(selectedPrices);
-    }, [selectedPrices]);
+        onPriceChange(minPrice, maxPrice);
+    }, [minPrice, maxPrice]);
 
-      //handle see more button click
-
-    const handleSeeMoreClick = () => {
-        setVisibleCount((prev) => Math.min(prev + 5, prices.length));
+    const clearFilters = () => {
+        setMinPrice(null);
+        setMaxPrice(null);
     };
 
     return (
@@ -45,33 +37,48 @@ export default function FilterPrice({ onPriceChange }: FilterPriceProps) {
                 onClick={() => setActive(!active)}
                 className="cursor-pointer font-semibold text-mainTextColor pb-4 pt-5"
             >
-                <h6>Tour Price</h6>
+                <h6>Tour Price Range</h6>
             </div>
 
             {active && (
-                <div>
-                    <ul>
-                        {prices.slice(0, visibleCount).map((price, index) => (
-                            <li key={index} className="flex items-center pb-1">
-                                <input
-                                    id={`price-${index}`}
-                                    type="checkbox"
-                                    className="me-2 w-4 h-4"
-                                    checked={selectedPrices.includes(price)}
-                                    onChange={() => handleCheckboxChange(price)}
-                                />
-                                <label htmlFor={`price-${index}`}>{price}</label>
-                            </li>
-                        ))}
-                    </ul>
+                <div className="space-y-4">
+                    <div className="flex flex-col">
+                        <label htmlFor="minPrice" className="mb-1 text-sm text-gray-600">
+                            Minimum Price ($)
+                        </label>
+                        <input
+                            id="minPrice"
+                            type="number"
+                            min="0"
+                            placeholder="Min"
+                            className="p-2 border rounded"
+                            value={minPrice || ''}
+                            onChange={handleMinPriceChange}
+                        />
+                    </div>
 
-                    {visibleCount < prices.length && (
-                        <div
-                            className="cursor-pointer pt-3 text-bgButtonOrange"
-                            onClick={handleSeeMoreClick}
+                    <div className="flex flex-col">
+                        <label htmlFor="maxPrice" className="mb-1 text-sm text-gray-600">
+                            Maximum Price ($)
+                        </label>
+                        <input
+                            id="maxPrice"
+                            type="number"
+                            min="0"
+                            placeholder="Max"
+                            className="p-2 border rounded"
+                            value={maxPrice || ''}
+                            onChange={handleMaxPriceChange}
+                        />
+                    </div>
+
+                    {(minPrice !== null || maxPrice !== null) && (
+                        <button
+                            onClick={clearFilters}
+                            className="text-sm text-bgButtonOrange hover:underline"
                         >
-                            See More
-                        </div>
+                            Clear filters
+                        </button>
                     )}
                 </div>
             )}
