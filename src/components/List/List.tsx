@@ -24,8 +24,8 @@ export default function List() {
     startDate: string | null;
     endDate: string | null;
   }>({ startDate: null, endDate: null });
-  
-  //handle date change
+
+  //handle data change from calender component
   const handleDateChange = (start: Date | null, end: Date | null) => {
     setDateRange({
       startDate: start?.toISOString().split('T')[0] || null,
@@ -46,7 +46,6 @@ export default function List() {
       </h3>
 
       <div className="flex flex-wrap gap-5 mt-10">
-        {/* Filters Sidebar */}
         <div className="w-full md:w-1/4 h-fit border rounded-t-lg border-borderGrayInputs">
           <div className="bg-bgButtonOrange rounded-t-lg py-10 px-4">
             <div className="w-fit mx-auto">
@@ -72,7 +71,6 @@ export default function List() {
           </div>
         </div>
 
-        {/* Results */}
         <div className="w-full md:w-4/6 me-3">
           <ListResults
             destination={destination}

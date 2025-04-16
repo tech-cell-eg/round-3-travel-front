@@ -9,7 +9,7 @@ export default function Layout() {
     <div className='bg-bgHome md:px-5 '>
       <Navbar/>
         <div className="flex flex-col min-h-screen bg-bgHome">
-        <div className="flex-grow py-10 pt-5 w-full w-full">
+        <div className="flex-grow py-10 pt-5 w-full">
           <Outlet />
         </div>
         <Footer />

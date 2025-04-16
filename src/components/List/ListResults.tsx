@@ -4,8 +4,8 @@ import { Button } from 'primereact/button';
 import { DataView } from 'primereact/dataview';
 import { useGetQuery } from '../../lib/useGetQuery';
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import { Language, Tour } from './types';
 
-//types 
 type ListResultsProps = {
   destination: string | null;
   startDate: string | null;
@@ -14,24 +14,11 @@ type ListResultsProps = {
   minPrice: number | null;
   maxPrice: number | null;
   selectedTourTypes: string[];
-  selectedLanguage: { languages: string }[];
+  selectedLanguage: Language[];
   selectedRating: string[];
 };
 
-type Tour = {
-  id: string;
-  title: string;
-  description: string;
-  image: string;
-  rating: string;
-  initial_price: number;
-  duration: number;
-  slug: string;  
-  destination: {
-    name: string;
-  };
-};
-
+//define the ListResults component
 const ListResults: React.FC<ListResultsProps> = ({
   destination,
   startDate,
@@ -45,7 +32,7 @@ const ListResults: React.FC<ListResultsProps> = ({
 }) => {
   const queryParams = new URLSearchParams();
 
-  //add query params to the URL
+  //append filters to query params
   if (destination) queryParams.append('destination', destination);
   if (startDate) queryParams.append('start_date', startDate);
   if (endDate) queryParams.append('end_date', endDate);
@@ -53,47 +40,32 @@ const ListResults: React.FC<ListResultsProps> = ({
   if (minPrice !== null) queryParams.append('min_price', minPrice.toString());
   if (maxPrice !== null) queryParams.append('max_price', maxPrice.toString());
 
-  //add selected tour params to the URL
-  selectedRating.forEach((rating) => {
-    queryParams.append('rating', rating);
-  });
-
-  selectedTourTypes.forEach((type) => {
-    queryParams.append('tour_category_ids[]', type);
-  });
-
-  selectedLanguage.forEach((lang) => {
-    queryParams.append('language[]', lang.languages);
-  });
+  //append selected filters to query params
+  selectedRating.forEach(rating => queryParams.append('rating', rating));
+  selectedTourTypes.forEach(type => queryParams.append('tour_category_ids[]', type));
+  selectedLanguage.forEach(lang => queryParams.append('languages', lang.languages)); // ✅ التعديل هنا
 
   const queryString = queryParams.toString();
+  console.log('API Request:', `/tours?${queryString}`);
 
-  //get tours data from api
-  const {
-    data: response = {},
-    isLoading,
-    isError,
-    error,
-  } = useGetQuery('tours', `/tours?${queryString}`);
+  const { data: response = {}, isLoading, isError, error } = 
+    useGetQuery('tours', `/tours?${queryString}`);
 
-  //check if responce is an array
-  const tours = Array.isArray(response.data) ? response.data : [];
+  const tours: Tour[] = Array.isArray(response?.data) ? response.data : [];
 
-  //check if tours is empty
   const dataToRender = useMemo(() => {
-    const count = 15;
-    const repeatFactor = Math.ceil(count / tours.length);
-    const shouldRepeat = false;
-    return shouldRepeat
-      ? Array.from({ length: repeatFactor }).flatMap(() => tours).slice(0, count)
-      : tours;
+    return tours;
   }, [tours]);
 
-  if (isLoading) return <div className='flex justify-center items-center pt-32'>
-    <AiOutlineLoading3Quarters /></div>;
-  if (isError) return <div>Error: {error?.message}</div>;
   
-  //check if tours is empty
+  if (isLoading) return (
+    <div className='flex justify-center items-center pt-32'>
+      <AiOutlineLoading3Quarters className="animate-spin" />
+    </div>
+  );
+
+  if (isError) return <div>Error: {error?.message}</div>;
+
   if (!dataToRender.length) {
     return (
       <div className="card">
@@ -153,7 +125,6 @@ const ListResults: React.FC<ListResultsProps> = ({
         itemTemplate={itemTemplate}
         paginator
         rows={5}
-        rowsPerPageOptions={[5, 10, 15, 20]}
       />
     </div>
   );
