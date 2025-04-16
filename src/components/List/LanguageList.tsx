@@ -1,9 +1,19 @@
 import { useEffect, useState } from 'react';
-import { useGetQuery } from '../../lib/useGetQuery';
 import { Language } from './types';
 
+//language list static data
+const STATIC_LANGUAGES: Language[] = [
+  { id: '1', languages: 'English' },
+  { id: '2', languages: 'Arabic' },
+  { id: '3', languages: 'French' },
+  { id: '4', languages: 'German' },
+  { id: '5', languages: 'Spanish' },
+  { id: '6', languages: 'Italian' },
+  { id: '7', languages: 'Russian' },
+  { id: '8', languages: 'Chinese' },
+];
 
-// to get the language list
+
 type LanguageListProps = {
   onLanguageChange: (selectedLanguages: Language[]) => void;
 };
@@ -13,36 +23,25 @@ export default function LanguageList({ onLanguageChange }: LanguageListProps) {
   const [visibleCount, setVisibleCount] = useState(5);
   const [selectedLanguages, setSelectedLanguages] = useState<Language[]>([]);
 
-  // get data from api
-  const { data: languages = [], isLoading, isError, error } = useGetQuery(
-    'tours',
-    '/tours'
-  );
-
-  // handle checkbox change (checked or unchecked)
+  //set default selected languages
   const handleCheckboxChange = (language: Language) => {
     setSelectedLanguages((prevSelected) => {
-      if (prevSelected.some((item) => item.id === language.id)) {
-        return prevSelected.filter((item) => item.id !== language.id); // remove it if already selected
-      } else {
-        return [...prevSelected, language]; // add the language if not selected
-      }
+      const newSelection = prevSelected.some(item => item.id === language.id)
+        ? prevSelected.filter(item => item.id !== language.id)
+        : [...prevSelected, language];
+      return newSelection;
     });
   };
 
-  // send selected languages to parent on every change
+  //select all languages
   useEffect(() => {
-    // تأكد من إرسال selectedLanguages بشكل صحيح
     onLanguageChange(selectedLanguages);
-  }, [selectedLanguages]);
+  }, [selectedLanguages, onLanguageChange]);
 
-  // handle see more button click
+  //default selected languages
   const handleSeeMoreClick = () => {
-    setVisibleCount((prev) => Math.min(prev + 5, languages.data.length));
+    setVisibleCount(prev => Math.min(prev + 5, STATIC_LANGUAGES.length));
   };
-
-  if (isLoading) return <div>Loading...</div>;
-  if (isError) return <div>Error: {error?.message}</div>;
 
   return (
     <div>
@@ -56,28 +55,27 @@ export default function LanguageList({ onLanguageChange }: LanguageListProps) {
       {active && (
         <div>
           <ul>
-            {Array.isArray(languages.data) &&
-              languages.data.slice(0, visibleCount).map((language: Language) => (
-                <li key={language.id} className="flex items-center pb-1">
-                  <input
-                    id={language.id}
-                    type="checkbox"
-                    className="me-2 w-4 h-4"
-                    checked={selectedLanguages.some((item) => item.id === language.id)}
-                    onChange={() => handleCheckboxChange(language)}
-                  />
-                  <label htmlFor={language.id}>{language.languages}</label>
-                </li>
-              ))}
+            {STATIC_LANGUAGES.slice(0, visibleCount).map((language) => (
+              <li key={language.id} className="flex items-center pb-1">
+                <input
+                  type="checkbox"
+                  id={`lang-${language.id}`}
+                  checked={selectedLanguages.some(item => item.id === language.id)}
+                  onChange={() => handleCheckboxChange(language)}
+                  className="me-2 w-4 h-4"
+                />
+                <label htmlFor={`lang-${language.id}`}>{language.languages}</label>
+              </li>
+            ))}
           </ul>
 
-          {visibleCount < languages.data.length && (
-            <div
-              className="cursor-pointer text-bgButtonOrange"
+          {visibleCount < STATIC_LANGUAGES.length && (
+            <button
               onClick={handleSeeMoreClick}
+              className="cursor-pointer text-bgButtonOrange mt-2"
             >
               See More
-            </div>
+            </button>
           )}
         </div>
       )}

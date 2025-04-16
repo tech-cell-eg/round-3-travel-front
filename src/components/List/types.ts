@@ -1,12 +1,19 @@
-// types.ts
+// src/components/types.ts
+export interface Language {
+  id: string;
+  languages: string;
+}
 
-export type Tour = {
-    id: string;
+export interface Tour {
+  id: string;
+  title: string;
+  description: string;
+  image: string;
+  rating: string;
+  initial_price: number;
+  duration: number;
+  slug: string;
+  destination: {
     name: string;
   };
-  
-  export type Language = {
-    id: string;
-    languages: string; // تأكد إنها "languages" لو جاية من الـ API كده
-  };
-  
+}
