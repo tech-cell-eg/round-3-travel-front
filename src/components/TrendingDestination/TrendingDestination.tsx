@@ -3,7 +3,7 @@ import { Carousel } from 'primereact/carousel';
 import { Button } from 'primereact/button';
 import { Link } from 'react-router-dom';
 import { useGetQuery } from '../../lib/useGetQuery';
-
+import imageDefault from "../../assets/image (24).png";
 type Destination = {
   id: string;
   tours_count: string;
@@ -61,6 +61,10 @@ export default function Trending() {
               src={destination.image}
               alt={destination.name}
               className="w-22 h-22 rounded-full shadow-2"
+              onError={(e) => {
+                e.currentTarget.onerror = null; 
+                e.currentTarget.src = imageDefault; 
+              }}
             />
           </div>
           <div className="pt-2">

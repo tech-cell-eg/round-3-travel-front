@@ -5,6 +5,7 @@ import { DataView } from 'primereact/dataview';
 import { useGetQuery } from '../../lib/useGetQuery';
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { Language, Tour } from './types';
+import imageDefault from "../../assets/image (26).png";
 
 type ListResultsProps = {
   destination: string | null;
@@ -79,8 +80,14 @@ const ListResults: React.FC<ListResultsProps> = ({
   const itemTemplate = (tour: Tour) => (
     <div key={tour.id} className="text-mainTextColor border border-borderGrayInputs p-4 mb-2 rounded">
       <div className="flex max-md:flex-wrap w-full gap-3">
-        <div className="w-full md:w-1/4 p-5">
-          <img src={tour.image} className="w-full" alt={tour.title} />
+        <div className="w-full md:w-1/4  ">
+          <img src={tour.image} 
+          className="w-full min-h-[180px]" 
+          alt={tour.title} 
+          onError={(e) => {
+            e.currentTarget.onerror = null; 
+            e.currentTarget.src = imageDefault; 
+          }}/>
         </div>
         <div className="w-full md:w-1/2">
           <p className="ps-3 text-textGrayColor text-sm">{tour.destination?.name}</p>

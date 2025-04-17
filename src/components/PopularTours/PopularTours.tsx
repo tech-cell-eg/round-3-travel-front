@@ -2,10 +2,10 @@ import { Button } from 'primereact/button';
 import { Link } from 'react-router-dom';
 import { useGetQuery } from '../../lib/useGetQuery';
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import imageDefault from "../../assets/image (25).png";
 
 export default function Popular() {
-
-  //define the type of tours data from api(interface)
+  
   type Tour = {
     id: string;
     name: string;
@@ -55,7 +55,13 @@ export default function Popular() {
                 className='w-full md:w-1/2 lg:w-1/4 p-2 cursor-pointer transform transition-transform duration-300 hover:scale-105'
               >
                 <div className='p-2 border border-borderGrayInputs rounded-lg text-sm'>
-                  <img className='w-full rounded-lg' src={tour.destination.image} alt={tour.name} />
+                  <img className='w-full rounded-lg' 
+                  src={tour.destination.image} 
+                  alt={tour.name} 
+                  onError={(e) => {
+                    e.currentTarget.onerror = null; 
+                    e.currentTarget.src = imageDefault; 
+                  }}/>
                   <div className='px-2'>
                     <p className='text-textGrayColor pt-4'>{tour.destination.name}</p>
                     <h6 className='pt-2 pb-3 font-semibold'>{tour.title}</h6>
