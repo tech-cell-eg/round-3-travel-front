@@ -10,7 +10,7 @@ export default function HomeBanner() {
             <br/>on your favorite <br/>Destination</h3>
             <p className="pt-6 pb-10">Limited time offer, don't miss the opportunity</p>
             <div className="card">
-                <Link to={'/'}>
+                <Link to={'/list'}>
                     <Button 
                     unstyled={true}
                     className="text-bgHome

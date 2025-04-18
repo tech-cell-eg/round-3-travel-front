@@ -31,68 +31,59 @@ export default function PopularThings() {
             Popular things to do
           </h3>
           <div className="card flex justify-content-center">
-            <Link to={"/"}>
+            <Link to={"/list"}>
               <Button
                 label="see all"
-                className="font-normal cursor-pointer hover:text-bgButtonOrange"
+                className="font-normal cursor-pointer  hover:text-bgButtonOrange"
                 unstyled={true}
               />
             </Link>
           </div>
         </div>
-        <Link to={"/"}></Link>
       </div>
       {Array.isArray(tours?.data) && tours.data.length >= 5 && (
         <div className="flex flex-wrap w-full gap-5 justify-center pt-5">
           <div className="w-full md:w-3/12">
-            <Link to={"/"}>
               <div
-                className="bg-[url('/image.png')] h-[170px] cursor-pointer  
+                className="bg-[url('/image.png')] h-[170px]   
                         bg-no-repeat bg-center bg-cover w-full rounded"
               >
                 <h6 className="pt-32 ps-3 text-secondTextColor">
                   {tours.data[0].name}
                 </h6>
               </div>
-            </Link>
-            <Link to={"/"}>
               <div
-                className="bg-[url('/image.png')] h-[170px]  cursor-pointer
+                className="bg-[url('/image.png')] h-[170px]  
                         bg-no-repeat bg-center bg-cover w-full rounded mt-5"
               >
                 <h6 className="pt-32 ps-3 text-secondTextColor">
                   {tours.data[1].name}
                 </h6>
               </div>
-            </Link>
           </div>
           <div className="w-full md:w-4/12">
-            <Link to={"/"}>
               <div
-                className="bg-[url('/image.png')] h-[363px] cursor-pointer
+                className="bg-[url('/image.png')] h-[363px] 
                         bg-no-repeat bg-center bg-cover w-full rounded"
               >
                 <h6 className="pt-[310px] ps-3 text-secondTextColor">
                   {tours.data[2].name}
                 </h6>
               </div>
-            </Link>
           </div>
           <div className="w-full md:w-4/12">
-            <Link to={"/"}>
               <div
-                className="bg-[url('/image.png')] h-[170px] cursor-pointer 
+                className="bg-[url('/image.png')] h-[170px]  
                         bg-no-repeat bg-center bg-cover w-full rounded mb-5"
               >
                 <h6 className="pt-32 ps-3 text-secondTextColor">
                   {tours.data[3].name}
                 </h6>
               </div>
-            </Link>
             <div className="w-full flex gap-5">
               <Link to={"/"} className="w-1/3">
                 <div
-                  className="bg-[url('/image.png')] h-[170px]  cursor-pointer
+                  className="bg-[url('/image.png')] h-[170px]  
                             bg-no-repeat bg-center bg-cover  rounded w-full"
                 >
                   <h6 className="pt-32 ps-3 text-secondTextColor">
@@ -103,7 +94,7 @@ export default function PopularThings() {
 
               <Link to={"/"} className="w-2/3">
                 <div
-                  className="bg-[url('/image.png')] h-[170px]  cursor-pointer
+                  className="bg-[url('/image.png')] h-[170px]  
                             bg-no-repeat bg-center bg-cover rounded w-full"
                 >
                   <h6 className="pt-32 ps-3 text-secondTextColor">

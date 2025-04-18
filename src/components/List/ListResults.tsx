@@ -1,17 +1,20 @@
-import { useMemo } from 'react';
+
+import React, { useState } from "react";
 import { Link } from 'react-router-dom';
 import { Button } from 'primereact/button';
-import { DataView } from 'primereact/dataview';
 import { useGetQuery } from '../../lib/useGetQuery';
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { Language, Tour } from './types';
 import imageDefault from "../../assets/image (26).png";
 
 type ListResultsProps = {
-  destination: string | null;
+  searchTerm: string | null;
+  destinationId: string | null;
+  // destinationName: string | null;
   startDate: string | null;
   endDate: string | null;
-  tourType: string | null;
+  tourTypeId: string | null;
+  // tourTypeName: string | null;
   minPrice: number | null;
   maxPrice: number | null;
   selectedTourTypes: string[];
@@ -19,59 +22,80 @@ type ListResultsProps = {
   selectedRating: string[];
 };
 
-//define the ListResults component
 const ListResults: React.FC<ListResultsProps> = ({
-  destination,
+  searchTerm,
+  destinationId,
+  // destinationName,
   startDate,
   endDate,
-  tourType,
+  tourTypeId,
+  // tourTypeName,
   minPrice,
   maxPrice,
   selectedTourTypes,
   selectedLanguage,
   selectedRating,
 }) => {
-  const queryParams = new URLSearchParams();
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 5;
+  const totalItems = 100;
+  const visiblePageCount = 5;
 
-  //append filters to query params
-  if (destination) queryParams.append('destination', destination);
+  const queryParams = new URLSearchParams();
+//add query params to the url
+  if (searchTerm) queryParams.append('search', searchTerm);
+  if (destinationId) queryParams.append('destination_id', destinationId);
   if (startDate) queryParams.append('start_date', startDate);
   if (endDate) queryParams.append('end_date', endDate);
-  if (tourType) queryParams.append('tour_type', tourType);
+  if (tourTypeId) queryParams.append('tour_type_id', tourTypeId);
   if (minPrice !== null) queryParams.append('min_price', minPrice.toString());
   if (maxPrice !== null) queryParams.append('max_price', maxPrice.toString());
 
-  //append selected filters to query params
+  //add filters to url
   selectedRating.forEach(rating => queryParams.append('rating', rating));
   selectedTourTypes.forEach(type => queryParams.append('tour_category_ids[]', type));
-  selectedLanguage.forEach(lang => queryParams.append('languages', lang.languages)); // ✅ التعديل هنا
+  selectedLanguage.forEach(lang => queryParams.append('languages', lang.languages));
 
   const queryString = queryParams.toString();
-  console.log('API Request:', `/tours?${queryString}`);
-
-  const { data: response = {}, isLoading, isError, error } = 
-    useGetQuery('tours', `/tours?${queryString}`);
+//add page to url
+  const { data: response, isLoading, isError, error } = 
+    useGetQuery(
+      `tours_page_${currentPage}_${queryString.replace(/[^a-zA-Z0-9]/g, '_')}`,
+      `/tours?page=${currentPage}&limit=${itemsPerPage}&${queryString}`
+    );
 
   const tours: Tour[] = Array.isArray(response?.data) ? response.data : [];
+  const totalPages = Math.ceil(totalItems / itemsPerPage);
+//get total items from response
+  const getVisiblePages = () => {
+    let startPage = Math.max(1, currentPage - Math.floor(visiblePageCount / 2));
+    let endPage = startPage + visiblePageCount - 1;
+    
+    if (endPage > totalPages) {
+      endPage = totalPages;
+      startPage = Math.max(1, endPage - visiblePageCount + 1);
+    }
+    
+    return Array.from({ length: endPage - startPage + 1 }, (_, i) => startPage + i);
+  };
 
-  const dataToRender = useMemo(() => {
-    return tours;
-  }, [tours]);
-
-  
   if (isLoading) return (
     <div className='flex justify-center items-center pt-32'>
-      <AiOutlineLoading3Quarters className="animate-spin" />
+      <AiOutlineLoading3Quarters className="animate-spin text-2xl" />
     </div>
   );
 
-  if (isError) return <div>Error: {error?.message}</div>;
+  if (isError) return (
+    <div className="text-red-500 text-center py-10">
+      Error: {(error as Error)?.message || 'Failed to load data'}
+    </div>
+  );
 
-  if (!dataToRender.length) {
+  if (!tours.length) {
     return (
       <div className="card">
         <div className="text-center py-10">
-          <p>No tours found matching your search</p>
+          <p>No tours found matching {searchTerm ? `"${searchTerm}"` : "your search"}</p>
         </div>
       </div>
     );
@@ -80,14 +104,16 @@ const ListResults: React.FC<ListResultsProps> = ({
   const itemTemplate = (tour: Tour) => (
     <div key={tour.id} className="text-mainTextColor border border-borderGrayInputs p-4 mb-2 rounded">
       <div className="flex max-md:flex-wrap w-full gap-3">
-        <div className="w-full md:w-1/4  ">
-          <img src={tour.image} 
-          className="w-full min-h-[180px]" 
-          alt={tour.title} 
-          onError={(e) => {
-            e.currentTarget.onerror = null; 
-            e.currentTarget.src = imageDefault; 
-          }}/>
+        <div className="w-full md:w-1/4">
+          <img 
+            src={tour.image} 
+            className="w-full min-h-[180px]" 
+            alt={tour.title} 
+            onError={(e: React.SyntheticEvent<HTMLImageElement>) => {
+              e.currentTarget.onerror = null; 
+              e.currentTarget.src = imageDefault; 
+            }}
+          />
         </div>
         <div className="w-full md:w-1/2">
           <p className="ps-3 text-textGrayColor text-sm">{tour.destination?.name}</p>
@@ -97,11 +123,11 @@ const ListResults: React.FC<ListResultsProps> = ({
           </p>
           <p className="text-sm py-4">{tour.description}</p>
           <div className="flex justify-between text-bgButtonOrange">
-            <p className="cursor-pointer">Best Price Guarantee</p>
-            <p className="cursor-pointer">Free Cancellation</p>
+            <p className="">Best Price Guarantee</p>
+            <p className="">Free Cancellation</p>
           </div>
         </div>
-        <div className="w-full md:w-1/4 border-l border-borderGrayInputs text-center">
+        <div className="w-full md:w-1/4 md:border-l max-md:border-t border-borderGrayInputs text-center">
           <p className="pt-5 pb-16 text-sm">
             {tour.duration} Days {tour.duration - 1} Nights
           </p>
@@ -124,15 +150,73 @@ const ListResults: React.FC<ListResultsProps> = ({
   return (
     <div className="card">
       <div className="flex justify-between text-mainTextColor mb-4">
-        <p>{tours.length} results</p>
+        <p>{totalItems} results</p>
         <p>Sort by: Featured</p>
       </div>
-      <DataView
-        value={dataToRender}
-        itemTemplate={itemTemplate}
-        paginator
-        rows={5}
-      />
+
+      <div className="space-y-4">
+        {tours.map(itemTemplate)}
+      </div>
+
+      <div className="flex justify-center items-center mt-6 gap-1">
+        <button
+          onClick={() => setCurrentPage(1)}
+          disabled={currentPage === 1}
+          className={`px-3 py-1 rounded ${currentPage === 1 ? 
+            'bg-gray-200 text-gray-500 cursor-not-allowed' : 
+            'bg-white border border-gray-300 hover:bg-gray-100'}`}
+        >
+          &laquo;
+        </button>
+        
+        <button
+          onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
+          disabled={currentPage === 1}
+          className={`px-3 py-1 rounded ${currentPage === 1 ? 
+            'bg-gray-200 text-gray-500 cursor-not-allowed' : 
+            'bg-white border border-gray-300 hover:bg-gray-100'}`}
+        >
+          &lsaquo;
+        </button>
+
+        {getVisiblePages().map(page => (
+          <button
+            key={page}
+            onClick={() => setCurrentPage(page)}
+            className={`px-3 py-1 mx-1 rounded ${
+              currentPage === page
+                ? 'bg-bgButtonOrange rounded-full py-2 px-4 text-white font-medium'
+                : 'bg-white  border-gray-300 hover:bg-gray-100'
+            }`}
+          >
+            {page}
+          </button>
+        ))}
+
+        <button
+          onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}
+          disabled={currentPage === totalPages}
+          className={`px-3 py-1 rounded ${currentPage === totalPages ? 
+            'bg-gray-200 text-gray-500 cursor-not-allowed' : 
+            'bg-white border border-gray-300 hover:bg-gray-100'}`}
+        >
+          &rsaquo;
+        </button>
+        
+        <button
+          onClick={() => setCurrentPage(totalPages)}
+          disabled={currentPage === totalPages}
+          className={`px-3 py-1 rounded ${currentPage === totalPages ? 
+            'bg-gray-200 text-gray-500 cursor-not-allowed' : 
+            'bg-white border border-gray-300 hover:bg-gray-100'}`}
+        >
+          &raquo;
+        </button>
+      </div>
+
+      <div className="text-center text-sm text-gray-500 mt-3">
+        Showing {(currentPage - 1) * itemsPerPage + 1} - {Math.min(currentPage * itemsPerPage, totalItems)} of {totalItems} tours
+      </div>
     </div>
   );
 };

@@ -17,3 +17,33 @@ export interface Tour {
     name: string;
   };
 }
+
+
+import { Dispatch, SetStateAction } from 'react';
+
+export interface Language {
+  id: string;
+  name?: string;
+  languages: string;
+}
+
+export interface TourTypeListProps {
+  onTourTypeChange: Dispatch<SetStateAction<string[]>>;
+  initialSelectedTypes?: string[];
+}
+
+export interface FilterPriceProps {
+  onPriceChange: (min: number | null, max: number | null) => void;
+  initialMinPrice?: number | null;
+  initialMaxPrice?: number | null;
+}
+
+export interface LanguageListProps {
+  onLanguageChange: Dispatch<SetStateAction<Language[]>>;
+  initialSelectedLanguages?: Language[];
+}
+
+export interface RatingListProps {
+  onRatingChange: Dispatch<SetStateAction<string[]>>;
+  initialSelectedRatings?: string[];
+}

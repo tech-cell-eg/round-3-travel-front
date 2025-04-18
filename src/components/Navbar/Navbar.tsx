@@ -13,15 +13,12 @@ export default function TemplateDemo() {
   const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState<string>("");
 
-
-  //handle search when user press on search button or enter key
   const handleSearch = () => {
     if (searchTerm.trim()) {
       navigate(`/list?search=${encodeURIComponent(searchTerm)}`);
     }
   };
 
-  //meue items
   const itemTemplate = (item: MenuItem) => {
     if (!item.label) return null;
     return (

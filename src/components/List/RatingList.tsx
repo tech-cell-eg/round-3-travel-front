@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react';
 
 // types (interface)
-type RatingListProps = {
-  onRatingChange: (selectedRatings: string[]) => void;
-};
+interface RatingListProps {
+  onRatingChange: (ratings: string[]) => void;
+  initialSelectedRatings?: string[];
+}
 
 export default function RatingList({ onRatingChange }: RatingListProps) {
   const [active, setActive] = useState(false);
