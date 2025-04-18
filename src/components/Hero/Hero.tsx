@@ -10,37 +10,36 @@ export default function Hero() {
   const navigate = useNavigate();
   const [startDate, setStartDate] = useState<Date | null>(null);
   const [endDate, setEndDate] = useState<Date | null>(null);
-  const [selectedCity, setSelectedCity] = useState<string | { name: string } | null>(null);
-  const [selectedTourType, setSelectedTourType] = useState<string | { name: string } | null>(null);
+  const [selectedCity, setSelectedCity] = useState<{id: string, name: string} | null>(null);
+  const [selectedTourType, setSelectedTourType] = useState<{id: string, name: string} | null>(null);
   
-  //handle the change in the calender
+  // Handle date range selection
   const handleDateChange = (start: Date | null, end: Date | null) => {
     setStartDate(start);
     setEndDate(end);
   };
 
-  //handle the change in the city
-  const handleCitySelect = (city: any) => {
-    setSelectedCity(city);  
+  // Handle city selection
+  const handleCitySelect = (city: {id: string, name: string} | null) => {
+    setSelectedCity(city);
   };
 
-    //handle the change in the tourType
-
-  const handleTourTypeSelect = (tourType: any) => {
-    setSelectedTourType(tourType);    
+  // Handle tour type selection
+  const handleTourTypeSelect = (tourType: {id: string, name: string} | null) => {
+    setSelectedTourType(tourType);
   };
 
-    //handle the change in the search button
-
+  // Handle search button click
   const handleSearch = () => {
     const params = new URLSearchParams();
     
-    //add parameters to the url
+    // Add destination parameters
     if (selectedCity) {
-      const cityName = typeof selectedCity === 'object' ? selectedCity.name : selectedCity;
-      params.append("destination", cityName);
+      params.append("destination_id", selectedCity.id);
+      params.append("destination_name", selectedCity.name); // For display purposes
     }
     
+    // Add date parameters
     if (startDate) {
       params.append("start_date", startDate.toISOString().split('T')[0]);
     }
@@ -49,11 +48,13 @@ export default function Hero() {
       params.append("end_date", endDate.toISOString().split('T')[0]);
     }
     
+    // Add tour type parameters
     if (selectedTourType) {
-      const tourTypeName = typeof selectedTourType === 'object' ? selectedTourType.name : selectedTourType;
-      params.append("tour_type", tourTypeName);
+      params.append("tour_type_id", selectedTourType.id);
+      params.append("tour_type_name", selectedTourType.name); // For display purposes
     }
     
+    // Navigate to list page with all parameters
     navigate(`/list?${params.toString()}`);
   };
 
@@ -63,8 +64,9 @@ export default function Hero() {
         <div className="flex flex-col items-center md:pt-32 pt-22 text-secondTextColor">
           <h2 className="font-bold xl:text-5xl md:text-2xl text-xl tracking-wide">Your world of joy</h2>
           <p className="md:pt-10 pt-4 text-sm text-center max-md:px-2">From local escapes to far-flung adventures, find what makes you happy anytime, anywhere</p>
+          
           <div className="md:mt-14 mt-6 bg-bgHome rounded-md py-5 px-8 md:items-center max-md:content-start flex max-md:flex-col md:gap-5">
-            {/* Where Destination */}
+            {/* Where Destination Section */}
             <div className="flex">
               <div className="card flex justify-content-center items-center">
                 <WhereDestination onCitySelect={handleCitySelect} />
@@ -73,15 +75,13 @@ export default function Hero() {
                 <label>
                   <h6 className="text-mainTextColor">Where</h6>
                   <p className="text-textGrayColor">
-                    {selectedCity ? 
-                      typeof selectedCity === 'object' ? selectedCity.name : selectedCity 
-                      : "Search destinations"}
+                    {selectedCity ? selectedCity.name : "Search destinations"}
                   </p>       
                 </label>
               </div>
             </div>
             
-            {/* When - Date */}
+            {/* When - Date Section */}
             <div className="flex max-md:my-3">
               <div className="card flex justify-content-center w-8">
                 <Duration onDateChange={handleDateChange} />
@@ -98,16 +98,14 @@ export default function Hero() {
               </div>
             </div>
             
-            {/* Tour Type */}
+            {/* Tour Type Section */}
             <div className="flex">
               <TourType onTourTypeSelect={handleTourTypeSelect}/>
               <div className="text-sm ps-2">
                 <label>
                   <h6 className="text-mainTextColor">Tour Type</h6>
                   <p className="text-textGrayColor">
-                    {selectedTourType ? 
-                      typeof selectedTourType === 'object' ? selectedTourType.name : selectedTourType 
-                      : "All Tours"}
+                    {selectedTourType ? selectedTourType.name : "All Tours"}
                   </p>       
                 </label>
               </div>

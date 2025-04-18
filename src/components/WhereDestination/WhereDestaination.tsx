@@ -1,26 +1,38 @@
+
 import { useState } from "react";
-import EditableDropdown from "../DropdownSelect/DropdownSelect"
+import EditableDropdown from "../DropdownSelect/DropdownSelect";
+
+interface City {
+  id: string;
+  name: string;
+}
 
 interface WhereDestinationProps {
-  onCitySelect: (city: any) => void;
+  onCitySelect: (city: City | null) => void;
 }
 
 export default function WhereDestination({ onCitySelect }: WhereDestinationProps) {
-  const [_, setSelectedCity] = useState<string | { name: string } | null>(null);
+  const [selectedCity, setSelectedCity] = useState<City | null>(null);
 
-    //to handle the selected destination and send it to the parent component
-  const handleCityChange = (city: any) => {
+  //handle the selected destination and send it to hero component
+  const handleCityChange = (city: City | null) => {
     setSelectedCity(city);
-    onCitySelect(city);  
+    onCitySelect(city);
+  };
+
+  //dropdown props
+  const dropdownProps = {
+    onCitySelect: handleCityChange,
+    endpoint: "destinations",
+    selectedItem: selectedCity,
+    itemLabel: "name"
   };
 
   return (
     <div className="card flex justify-content-center items-center">
       <EditableDropdown 
-        onCitySelect={handleCityChange} 
-        endpoint="destinations"    
+        {...dropdownProps}
       />
     </div>
   );
 }
-

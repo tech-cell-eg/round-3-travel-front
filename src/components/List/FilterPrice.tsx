@@ -1,9 +1,11 @@
 import { useState, useEffect } from 'react';
 
 //types (interface)
-type FilterPriceProps = {
-    onPriceChange: (minPrice: number | null, maxPrice: number | null) => void;
-};
+interface FilterPriceProps {
+    onPriceChange: (min: number | null, max: number | null) => void;
+    initialMinPrice?: number | null;
+    initialMaxPrice?: number | null;
+  }
 
 export default function FilterPrice({ onPriceChange }: FilterPriceProps) {
     const [active, setActive] = useState(false);

@@ -1,18 +1,29 @@
-import { useState } from "react";
+
+import { useState, useEffect } from "react";
 import { Calendar } from "primereact/calendar";
 
 interface CalenderRangeProps {
   onDateChange: (start: Date | null, end: Date | null) => void;
+  initialStartDate?: Date | null;
+  initialEndDate?: Date | null;
 }
 
-const CalenderRange = ({ onDateChange }: CalenderRangeProps) => {
+const CalenderRange = ({ 
+  onDateChange, 
+  initialStartDate = null, 
+  initialEndDate = null 
+}: CalenderRangeProps) => {
   const [dateRange, setDateRange] = useState<(Date | null)[] | null>(null);
 
-  const today = new Date();
+  useEffect(() => {
+    if (initialStartDate && initialEndDate) {
+      setDateRange([initialStartDate, initialEndDate]);
+    }
+  }, [initialStartDate, initialEndDate]);
 
+  const today = new Date();
   const tomorrow = new Date(today);
   tomorrow.setDate(today.getDate() + 1);
-
   const twoMonthsLater = new Date(today);
   twoMonthsLater.setMonth(today.getMonth() + 2);
 

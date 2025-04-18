@@ -14,9 +14,10 @@ const STATIC_LANGUAGES: Language[] = [
 ];
 
 
-type LanguageListProps = {
-  onLanguageChange: (selectedLanguages: Language[]) => void;
-};
+interface LanguageListProps {
+  onLanguageChange: (languages: Language[]) => void;
+  initialSelectedLanguages?: Language[];
+}
 
 export default function LanguageList({ onLanguageChange }: LanguageListProps) {
   const [active, setActive] = useState(false);

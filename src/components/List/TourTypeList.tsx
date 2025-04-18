@@ -8,9 +8,10 @@ type Tour = {
 };
 
 //to get the tour type list
-type TourTypeListProps = {
-  onTourTypeChange: (selectedTourTypes: string[]) => void;
-};
+interface TourTypeListProps {
+  onTourTypeChange: (types: string[]) => void;
+  initialSelectedTypes?: string[];
+}
 
 export default function TourTypeList({ onTourTypeChange }: TourTypeListProps) {
   const [active, setActive] = useState(false);

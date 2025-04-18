@@ -54,7 +54,6 @@ export default function Trending() {
 
   const destinationTemplate = (destination: Destination) => (
     <div className="m-2 text-center py-5 px-3 ">
-      <Link to={`/destination/${destination.id}`} className="cursor-pointer">
         <div className="transform transition-transform duration-300 hover:scale-115">
           <div className="mb-3">
             <img
@@ -72,7 +71,6 @@ export default function Trending() {
             <p className="mb-1 text-sm">{destination.tours_count}+ Tours</p>
           </div>
         </div>
-      </Link>
     </div>
   );
 
@@ -83,7 +81,7 @@ export default function Trending() {
           Trending destinations
         </h3>
         <div className="card flex justify-content-center">
-          <Link to={'/'}>
+          <Link to={'/list'}>
             <Button
               label="see all"
               className="font-normal cursor-pointer hover:text-bgButtonOrange"
