@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Carousel } from "primereact/carousel";
 import { useGetQuery } from "../../lib/useGetQuery";
 import './Reviews.css';
+import image from "../../assets/art-img.png";
 
 export default function Reviews() {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -22,7 +23,7 @@ export default function Reviews() {
     <div className="text-center px-4 py-6   max-w-xl mx-auto">
       <div className="flex justify-center mb-4 relative">
         <img
-          src={review.user.image}
+          src={image}
           alt={review.name}
           className="rounded-full w-20 h-20 object-cover border-4 border-white shadow-md"
         />
